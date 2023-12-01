@@ -1,1 +1,43 @@
-<p>card works!</p>
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{libro.title}}</mat-card-title>
+        <mat-card-subtitle>{{libro.author}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <!--TODO: imagen -->
+    <!-- <img mat-card-image [src]="libro | libroImage" [alt]="libro.title"> -->
+
+    <mat-card-content>
+        <p>
+            <strong>Editorial: </strong>{{ libro.publisher }}
+            <br>
+            <strong>Genero: </strong> {{ libro.genre }}
+        </p>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+        <button mat-button
+            mat-raised
+            color="primary"
+            [routerLink]="['/libros/edit', libro.id]"
+        >
+            <mat-icon>edit</mat-icon>
+            Editar
+        </button>
+
+        <span class="spacer"></span>
+
+        <button mat-button
+            mat-raised
+            [routerLink]="['/libros', libro.id]"
+        >
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+
+    </mat-card-actions>
+
+
+</mat-card>

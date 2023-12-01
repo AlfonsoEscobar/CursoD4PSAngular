@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Libro } from '../../interfaces/libro.interface';
+import { FormControl } from '@angular/forms';
+import { LibroService } from '../../services/libro.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-search-page',
@@ -6,11 +10,31 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class SearchPageComponent implements OnInit {
+export class SearchPageComponent {
 
-  constructor() { }
+  public searchInput = new FormControl('');
+  public libros: Libro[] = [];
+  public selectedHero?: Libro;
 
-  ngOnInit(): void {
+
+  constructor(private librosService: LibroService ) { }
+  
+  searchLibro() {
+    const value: string = this.searchInput.value || '';
+
+    this.librosService.getSuggestions(value)
+      .subscribe( libros => this.libros = libros);
+
+  }
+
+  onSelectedOption( event: MatAutocompleteSelectedEvent): void {
+    if( !event.option.value ){
+      this.selectedHero = undefined;
+      return;
+    }
+
+    const libro: Libro = event.option.value;
+    this.searchInput.setValue(libro.title);
   }
 
 }

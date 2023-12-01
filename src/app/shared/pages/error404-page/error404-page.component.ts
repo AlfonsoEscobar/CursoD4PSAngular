@@ -6,11 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class Error404PageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class Error404PageComponent {
 
 }

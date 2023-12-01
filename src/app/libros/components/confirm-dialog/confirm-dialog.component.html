@@ -1,1 +1,9 @@
-<p>confirm-dialog works!</p>
+<h1 mat-dialog-title>¿Estas seguro?</h1>
+<div mat-dialog-content>
+  <p>Este proceso no es reversible, estas a punto de borrar a {{ data.title }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <span class="spacer"></span>
+  <button mat-button color="primary" (click)="onConfirm()" cdkFocusInitial>Ok</button>
+</div>

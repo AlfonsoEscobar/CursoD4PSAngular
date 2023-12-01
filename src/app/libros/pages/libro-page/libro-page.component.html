@@ -1,1 +1,53 @@
-<p>libro-page works!</p>
+
+<ng-template #divLoading>
+    <mat-grid-list cols="1">
+        <mat-grid-tile>
+            <mat-spinner></mat-spinner>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+</ng-template>
+
+<div *ngIf="libro; else divLoading" class="grid p-2">
+    
+    <mat-card class="col-12 sm:col-6 ">
+
+        <mat-card-header>
+            <mat-card-title>{{ libro.title }}</mat-card-title>
+            <mat-card-subtitle>{{ libro.author }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- <img [src]="libro | libroImage " [alt]="libro.image" mat-card-image/> -->
+        
+    </mat-card>
+
+    <mat-card class="col-12 sm:col-6 ">
+
+        <mat-card-header>
+            <mat-card-title>Informacion del libro:</mat-card-title>
+            <mat-card-subtitle>{{ libro.title }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item>{{ libro.genre }}</mat-list-item>
+                <mat-list-item>{{ libro.isbn }}</mat-list-item>
+                <mat-list-item>{{ libro.published }}</mat-list-item>
+                <mat-list-item>{{ libro.publisher }}</mat-list-item>
+                <mat-list-item>{{ libro.description }}</mat-list-item>
+            </mat-list>
+
+            <button 
+                mat-button
+                color="warn"
+                (click)="goBack()"
+            >
+                Regresar
+            </button>
+
+        </mat-card-content>
+        
+    </mat-card>
+
+</div>

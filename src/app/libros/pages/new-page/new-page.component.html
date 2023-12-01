@@ -1,1 +1,113 @@
-<p>new-page works!</p>
+<h1>
+    {{currentLibro.id ? 'Editar' : 'Agregar'}}
+    libro
+    <small *ngIf="currentLibro.id">{{ currentLibro.title }}</small>
+</h1>
+
+
+<mat-divider class="mb-2"></mat-divider>
+
+<div class="grid">
+    <div class="col-12 sm:col-6">
+        <mat-card>
+            <mat-card-content>
+                <form class="grid" [formGroup]="libroForm" (ngSubmit)="onSubmit()">
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Titulo</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            required
+                            formControlName="title"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Autor</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            required
+                            formControlName="author"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Genero</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            required
+                            formControlName="genre"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>ISBN</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        required
+                        formControlName="isbn"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Fecha de publicacion</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        required
+                        formControlName="published"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Editorial</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        formControlName="publisher"
+                        />
+                    </mat-form-field>
+
+                </form>
+
+                <div class="flex justify-content-between">
+                    <button 
+                        *ngIf="currentLibro.id"
+                        (click)="onDeleteLibro()"
+                        mat-flat-button
+                        color="warn"
+                    >
+                        <mat-icon>delete</mat-icon>
+                        Borrar
+                    </button>
+                    
+                    <span></span>
+                
+                    <button mat-flat-button
+                        mat-flat-button
+                        color="primary"
+                        (click)="onSubmit()"
+                    >
+                        <mat-icon>save</mat-icon>
+                        Guardar
+                    </button>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-12 sm:col-6">
+
+        <mat-card>
+            <!-- <img [src]="currentLibro | libroImage" alt="Portada del libro" mat-card-image> -->
+        </mat-card>
+
+    </div>
+
+</div>
+
