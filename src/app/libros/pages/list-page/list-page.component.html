@@ -2,44 +2,84 @@
 <mat-divider></mat-divider>
 
 <!-- <div>
-
     <div *ngFor="let libro of libros"
          class="block font-bold text-center p-4 border-round mb-3">
-
          <libros-libro-card [libro]="libro"></libros-libro-card>
-
     </div>
-
-
 </div> -->
 
-<table mat-table [dataSource]="libros" class="mat-elevation-z8">
+<!-- <mat-table [dataSource]="libros">
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let libro"> {{libro.id}} </td>
-    </ng-container>
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+    <mat-cell *matCellDef="let libro"> {{ libro.title }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="author">
+    <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
+    <mat-cell *matCellDef="let libro"> {{ libro.author }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="isbn">
+    <mat-header-cell *matHeaderCellDef> ISBN </mat-header-cell>
+    <mat-cell *matCellDef="let libro"> {{ libro.isbn }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="seleccionarLibro(row)"></mat-row>
+</mat-table> -->
+
+
+<mat-table [dataSource]="libros" >
+
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>Titulo</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.title}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="author">
+    <mat-header-cell *matHeaderCellDef>Autor</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.author}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="genre">
+    <mat-header-cell *matHeaderCellDef>Genero</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.genre}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="isbn">
+    <mat-header-cell *matHeaderCellDef>ISBN</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.isbn}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="published">
+    <mat-header-cell *matHeaderCellDef>published</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.published}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="publisher">
+    <mat-header-cell *matHeaderCellDef>publisher</mat-header-cell>
+    <mat-cell *matCellDef="let libro">{{libro.publisher}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+    <mat-cell *matCellDef="let libro">
+      <button mat-mini-fab color="warn" (click)="borrarLibro(libro)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="editarLibro(libro)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
   
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Titulo </th>
-      <td mat-cell *matCellDef="let libro"> {{libro.title}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Editorial </th>
-      <td mat-cell *matCellDef="let libro"> {{libro.publisher}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Genero </th>
-      <td mat-cell *matCellDef="let libro"> {{libro.genre}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
