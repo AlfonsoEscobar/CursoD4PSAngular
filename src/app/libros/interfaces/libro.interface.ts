@@ -2,7 +2,7 @@ export interface Libro {
     id:          number;
     title:       string;
     author:      string;
-    image:       string;
+    image?:       string;
     genre:       string;
     isbn:        string;
     published:   string;

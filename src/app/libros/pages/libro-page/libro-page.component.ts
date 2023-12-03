@@ -27,7 +27,6 @@ export class LibroPageComponent implements OnInit{
       ).subscribe( 
         libro => {
           if(!libro) return this.router.navigate([ '/libros/list' ]);
-
           this.libro = libro;
           return;
         }

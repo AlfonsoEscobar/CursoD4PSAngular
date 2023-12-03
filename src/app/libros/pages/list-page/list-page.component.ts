@@ -1,42 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Libro } from '../../interfaces/libro.interface';
 import { LibroService } from '../../services/libro.service';
-import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
-
-// @Component({
-//   selector: 'app-list-page',
-//   templateUrl: './list-page.component.html',
-//   styles: [
-//   ]
-// })
-// export class ListPageComponent implements OnInit{
-  
-//   public libros: Libro[] = [];
-  
-//   constructor(private libroService: LibroService){ }
-
-//   ngOnInit(): void {
-//     this.libroService.getLibros()
-//       .subscribe(libros =>this.libros = libros);
-//   }
-
-//   columnas: string[] = ['codigo', 'descripcion', 'precio', 'borrar'];
-
-//   datos: Libro[] = this.libros;
-
-//   librosselect: Libro = this.libros[0];
-
-//   @ViewChild(MatTable) tabla1!: MatTable<Libro>;
-
-//   borrarFila(cod: number) {
-//     if (confirm("Realmente quiere borrarlo?")) {
-//       this.datos.splice(cod, 1);
-//       this.tabla1.renderRows();
-//     }
-//   }
-
-// }
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-list-page',
@@ -44,10 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: [],
 })
 export class ListPageComponent implements OnInit {
-  libros: Libro[] = [];
-  displayedColumns: string[] = ['id', 'title', 'author', 'genre', 'isbn', 'published', 'publisher', 'acciones',];
 
-  selectedLibros: Libro[] = [];
+  public libros: Libro[] = [];
+  public displayedColumns: string[] = ['id', 'title', 'author', 'genre', 'isbn', 'published', 'publisher', 'acciones',];
+  public selectedLibros: Libro[] = [];
+  public title = new FormControl('');
+  public author = new FormControl('');
+  public genre = new FormControl('');
+  public selectedLibro?: Libro;
 
   constructor(
     private libroService: LibroService,
@@ -64,16 +35,18 @@ export class ListPageComponent implements OnInit {
     });
   }
 
-  // Método para manejar la selección de filas
   borrarLibro(libro: Libro) {
     const index = this.selectedLibros.indexOf(libro);
     if (index >= 0) {
       this.selectedLibros.splice(index, 1);
     } else {
       this.selectedLibros.push(libro);
-      console.log(libro.id)
       this.libroService.deleteLibro(libro.id)
-        .subscribe();
+        .subscribe(data => { 
+          if (data) {
+            this.libros = this.libros.filter(lib => lib.id !== libro.id);
+          }
+        });
     }
 
   }
@@ -87,6 +60,40 @@ export class ListPageComponent implements OnInit {
       this.router.navigate(['/libros/edit', libro.id])
     }
 
+  }
+
+  searchLibro(tag: string) {
+    let value: string = '';
+
+    if(tag === 'title'){
+      value = this.title.value || '';
+    }else if(tag === 'genre'){
+      value = this.genre.value || '';
+    }else if(tag === 'author'){
+      value = this.author.value || '';
+    }
+
+    this.libroService.getSuggestions(tag, value)
+      .subscribe( libros => {
+        this.libros = libros
+      });
+  }
+
+  onSelectedOption( event: MatAutocompleteSelectedEvent, tag: string): void {
+    if( !event.option.value ){
+      this.selectedLibro = undefined;
+      return;
+    }
+    
+    const libro: Libro = event.option.value;
+    if(tag === 'title'){
+      this.title.setValue(libro.title);
+    }else if(tag === 'genre'){
+      this.genre.setValue(libro.title);
+    }else if(tag === 'author'){
+      this.author.setValue(libro.title);
+    }
+    this.router.navigate(['/libros/edit', libro.id]);
   }
 
 }

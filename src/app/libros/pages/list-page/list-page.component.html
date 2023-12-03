@@ -1,34 +1,77 @@
 <h1>Listado de Libros</h1>
 <mat-divider></mat-divider>
 
-<!-- <div>
-    <div *ngFor="let libro of libros"
-         class="block font-bold text-center p-4 border-round mb-3">
-         <libros-libro-card [libro]="libro"></libros-libro-card>
-    </div>
-</div> -->
+<div>
+  <h3>Buscador</h3>
+  <mat-form-field class="grid col-12 sm:col-4">
+      <mat-label>Buscar por Titulo</mat-label>
+      <input 
+          type="text"
+          matInput
+          [formControl]="title"
+          (input)="searchLibro('title')"
+          [matAutocomplete]="a"
+      />
+      <mat-autocomplete autoActiveFirstOption 
+          #a="matAutocomplete"
+          (optionSelected)="onSelectedOption( $event, 'title' )">
+          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
+              {{ libro.title }}
+          </mat-option> -->
+        </mat-autocomplete>
+        <mat-option
+          *ngIf="libros.length === 0 && title.value && title.value.length > 0"
+          value="">
+          No se encontro nada con el termino {{ title.value }}
+        </mat-option>
+  </mat-form-field>
+  <mat-form-field class="col-12 sm:col-4">
+    <mat-label>Buscar por Autor</mat-label>
+    <input 
+        matInput
+        type="text"
+        [formControl]="author"
+        (input)="searchLibro( 'author' )"
+        [matAutocomplete]="auto"
+    />
+    <mat-autocomplete autoActiveFirstOption 
+          #auto="matAutocomplete"
+          (optionSelected)="onSelectedOption( $event, 'author' )">
+          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
+              {{ libro.title }}
+          </mat-option> -->
+        </mat-autocomplete>
+        <mat-option
+          *ngIf="libros.length === 0 && author.value && author.value.length > 0"
+          value="">
+          No se encontro nada con el termino {{ author.value }}
+        </mat-option>
+  </mat-form-field>
+  <mat-form-field class="col-12 sm:col-4">
+    <mat-label>Buscar por Genero</mat-label>
+    <input 
+        matInput
+        type="text"
+        [formControl]="genre"
+        (input)="searchLibro('genre')"
+        [matAutocomplete]="aut"
+    />
+    <mat-autocomplete autoActiveFirstOption 
+          #aut="matAutocomplete"
+          (optionSelected)="onSelectedOption( $event, 'genre' )">
+          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
+              {{ libro.title }}
+          </mat-option> -->
+        </mat-autocomplete>
+        <mat-option
+          *ngIf="libros.length === 0 && genre.value && genre.value.length > 0"
+          value="">
+          No se encontro nada con el termino {{ genre.value }}
+        </mat-option>
+  </mat-form-field>
+</div>
 
-<!-- <mat-table [dataSource]="libros">
-
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
-    <mat-cell *matCellDef="let libro"> {{ libro.title }} </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="author">
-    <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
-    <mat-cell *matCellDef="let libro"> {{ libro.author }} </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="isbn">
-    <mat-header-cell *matHeaderCellDef> ISBN </mat-header-cell>
-    <mat-cell *matCellDef="let libro"> {{ libro.isbn }} </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="seleccionarLibro(row)"></mat-row>
-</mat-table> -->
-
+<mat-divider></mat-divider>
 
 <mat-table [dataSource]="libros" >
 
@@ -58,19 +101,19 @@
   </ng-container>
 
   <ng-container matColumnDef="published">
-    <mat-header-cell *matHeaderCellDef>published</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Fecha de publicacion</mat-header-cell>
     <mat-cell *matCellDef="let libro">{{libro.published}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="publisher">
-    <mat-header-cell *matHeaderCellDef>publisher</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Editorial</mat-header-cell>
     <mat-cell *matCellDef="let libro">{{libro.publisher}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="acciones">
     <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
     <mat-cell *matCellDef="let libro">
-      <button mat-mini-fab color="warn" (click)="borrarLibro(libro)">
+      <button mat-mini-fab color="warn" class="p-mr-2" (click)="borrarLibro(libro)">
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-mini-fab color="primary" (click)="editarLibro(libro)">

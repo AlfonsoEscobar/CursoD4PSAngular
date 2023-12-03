@@ -54,17 +54,6 @@
       "image": "http://placeimg.com/480/640/any",
       "published": "1992-08-18",
       "publisher": "Dolores Labore"
-    },
-    {
-      "id": 14,
-      "title": "Hola",
-      "author": "Como estas",
-      "image": "",
-      "genre": "Bien",
-      "isbn": "1234567895465",
-      "published": "19/12/12",
-      "publisher": "ni idea",
-      "description": ""
     }
   ]
 }

@@ -15,7 +15,7 @@ export class SearchPageComponent {
 
   public searchInput = new FormControl('');
   public libros: Libro[] = [];
-  public selectedHero?: Libro;
+  public selectedLibro?: Libro;
 
 
   constructor(
@@ -23,18 +23,18 @@ export class SearchPageComponent {
     private router: Router
     ) { }
   
-  searchLibro() {
-    const value: string = this.searchInput.value || '';
+  // searchLibro() {
+  //   const value: string = this.searchInput.value || '';
 
-    this.librosService.getSuggestions(value)
-      .subscribe( libros => {
-        this.libros = libros
-      });
-  }
+  //   this.librosService.getSuggestions(value)
+  //     .subscribe( libros => {
+  //       this.libros = libros
+  //     });
+  // }
 
   onSelectedOption( event: MatAutocompleteSelectedEvent): void {
     if( !event.option.value ){
-      this.selectedHero = undefined;
+      this.selectedLibro = undefined;
       return;
     }
     
