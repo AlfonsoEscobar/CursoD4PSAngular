@@ -89,9 +89,9 @@ export class ListPageComponent implements OnInit {
     if(tag === 'title'){
       this.title.setValue(libro.title);
     }else if(tag === 'genre'){
-      this.genre.setValue(libro.title);
+      this.genre.setValue(libro.genre);
     }else if(tag === 'author'){
-      this.author.setValue(libro.title);
+      this.author.setValue(libro.author);
     }
     this.router.navigate(['/libros/edit', libro.id]);
   }

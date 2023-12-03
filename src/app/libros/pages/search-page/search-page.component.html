@@ -1,25 +1,79 @@
-<!-- <div class="flex flex-column p-2">
-    <h3>Buscador</h3>
-    <mat-form-field>
-        <mat-label>Buscador de libros</mat-label>
-        <input 
-            type="text"
-            matInput
-            [formControl]="searchInput"
-            (input)="searchLibro()"
-            [matAutocomplete]="auto"
-        />
-        <mat-autocomplete autoActiveFirstOption 
-            #auto="matAutocomplete"
-            (optionSelected)="onSelectedOption( $event )">
-            <mat-option *ngFor="let libro of libros" [value]="libro">
-                {{ libro.title }}
-            </mat-option>
-          </mat-autocomplete>
-          <mat-option
-            *ngIf="libros.length === 0 && searchInput.value && searchInput.value.length > 0"
-            value="">
-            No se encontro nada con el termino {{ searchInput.value }}
-          </mat-option>
-    </mat-form-field>
-</div> -->
+
+<div>
+    <div>
+        <mat-card>
+            <mat-card-content>
+                <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Titulo</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            formControlName="title"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Autor</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            formControlName="author"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Genero</mat-label>
+                        <input 
+                            matInput
+                            type="text"
+                            formControlName="genre"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Fecha de publicacion Desde:</mat-label>
+                        <input 
+                        matInput
+                        type="date"
+                        formControlName="from"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Fecha de publicacion Hasta</mat-label>
+                        <input 
+                        matInput
+                        type="date"
+                        formControlName="to"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>ISBN</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        formControlName="isbn"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="col-12 sm:col-4">
+                        <mat-label>Editorial</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        formControlName="publisher"
+                        />
+                    </mat-form-field>
+                </form>
+                <div class="flex justify-content-center">
+                    <button
+                        (click)="onSubmit()"
+                        class="col-12 sm:col-4"
+                        mat-flat-button
+                        color="primary"
+                    >
+                        <mat-icon>search</mat-icon>
+                        Buscar
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
