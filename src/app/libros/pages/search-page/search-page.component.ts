@@ -96,6 +96,9 @@ export class SearchPageComponent {
 
     console.log(busqueda);
 
+    this.librosService.getSuggestions(busqueda)
+      .subscribe();
+
   }
 
 }

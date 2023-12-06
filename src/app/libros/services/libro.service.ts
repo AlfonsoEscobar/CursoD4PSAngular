@@ -23,8 +23,8 @@ export class LibroService {
         );
     }
 
-    getSuggestions(campo: string, query: string ): Observable<Libro[]>{
-        return this.http.get<Libro[]>(`${this.baseUrl}/libros?${campo}_like=${query}&_limit=6`)
+    getSuggestions(query: string ): Observable<Libro[]>{
+        return this.http.get<Libro[]>(`${this.baseUrl}/libros${query}`);
     }
 
     addLibro( libro: Libro): Observable<Libro>{
