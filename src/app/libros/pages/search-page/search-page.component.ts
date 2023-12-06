@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Libro, LibroBusqueda } from '../../interfaces/libro.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LibroService } from '../../services/libro.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Router } from '@angular/router';
 
 @Component({
@@ -44,39 +43,8 @@ export class SearchPageComponent {
 
   onSubmit(): void{
     const libroBusqueda = this.libroForm.value as LibroBusqueda;
-    console.log({libroBusqueda});
-
-    // Construimos la sentencia de busqueda
-    const filteredSearchCriteria = Object.entries(libroBusqueda).filter(([_, value]) => value !== '');
-
-    // Realizar la solicitud al servidor con los criterios de búsqueda
-    // ...
-
-    console.log(filteredSearchCriteria);
-
+  
     let busqueda: string = '?';
-
-    // if(libroBusqueda.title){
-    //   busqueda += `title_like=${libroBusqueda.title}`
-    // }
-    // if(libroBusqueda.author){
-    //   busqueda += `&author_like=${libroBusqueda.author}`
-    // }
-    // if(libroBusqueda.genre){
-    //   busqueda += `&genre_like=${libroBusqueda.genre}`
-    // }
-    // if(libroBusqueda.from){ // FROM
-    //   busqueda += `&published_gte=${libroBusqueda.from}`
-    // }
-    // if(libroBusqueda.to){ // TO
-    //   busqueda += `&published_lte=${libroBusqueda.to}`
-    // }
-    // if(libroBusqueda.isbn){ // FROM
-    //   busqueda += `&isbn_like=${libroBusqueda.isbn}`
-    // }
-    // if(libroBusqueda.publisher){ // FROM
-    //   busqueda += `&publisher_like=${libroBusqueda.publisher}`
-    // }
 
     const queryParams = [
       { key: 'title', prefix: 'title_like' },
@@ -94,11 +62,14 @@ export class SearchPageComponent {
       }
     }
 
-    console.log(busqueda);
-
     this.librosService.getSuggestions(busqueda)
-      .subscribe();
+      .subscribe( data => {
+        this.libros = data;
+      });
+  }
 
+  onClean(): void {
+    this.libroForm.reset();
   }
 
 }

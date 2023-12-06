@@ -13,11 +13,7 @@
           [matAutocomplete]="a"
       />
       <mat-autocomplete autoActiveFirstOption 
-          #a="matAutocomplete"
-          (optionSelected)="onSelectedOption( $event, 'title' )">
-          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
-              {{ libro.title }}
-          </mat-option> -->
+          #a="matAutocomplete">
         </mat-autocomplete>
         <mat-option
           *ngIf="libros.length === 0 && title.value && title.value.length > 0"
@@ -35,11 +31,7 @@
         [matAutocomplete]="auto"
     />
     <mat-autocomplete autoActiveFirstOption 
-          #auto="matAutocomplete"
-          (optionSelected)="onSelectedOption( $event, 'author' )">
-          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
-              {{ libro.title }}
-          </mat-option> -->
+          #auto="matAutocomplete">
         </mat-autocomplete>
         <mat-option
           *ngIf="libros.length === 0 && author.value && author.value.length > 0"
@@ -57,11 +49,7 @@
         [matAutocomplete]="aut"
     />
     <mat-autocomplete autoActiveFirstOption 
-          #aut="matAutocomplete"
-          (optionSelected)="onSelectedOption( $event, 'genre' )">
-          <!-- <mat-option *ngFor="let libro of libros" [value]="libro">
-              {{ libro.title }}
-          </mat-option> -->
+          #aut="matAutocomplete">
         </mat-autocomplete>
         <mat-option
           *ngIf="libros.length === 0 && genre.value && genre.value.length > 0"

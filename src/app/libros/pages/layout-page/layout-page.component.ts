@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
 export class LayoutPageComponent {
 
   public sidebarItems = [
-    { label: 'Listado', icon: 'label', url: './list' },
-    { label: 'Añadir', icon: 'add', url: './new-libro' },
-    { label: 'Buscar', icon: 'search', url: './search' },
+    { label: 'Listar Libros', icon: 'label', url: './list' },
+    { label: 'Añadir Libro', icon: 'add', url: './new-libro' },
+    { label: 'Busqueda Avanzada', icon: 'search', url: './search' },
   ]
 
 }

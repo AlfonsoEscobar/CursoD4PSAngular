@@ -68,13 +68,14 @@ export class NewPageComponent implements OnInit{
         .subscribe( libro => {
           this.showSnackbar(`${libro.title} updated.`);
         });
+    }else{
+      this.librosService.addLibro(this.currentLibro)
+        .subscribe(libro => {
+          this.showSnackbar(`${libro.title} created.`);
+          this.router.navigate(['/libros/edit', libro.id]);
+        });
     }
 
-    this.librosService.addLibro(this.currentLibro)
-      .subscribe(libro => {
-        this.showSnackbar(`${libro.title} created.`);
-        this.router.navigate(['/libros/edit', libro.id]);
-      });
 
   }
 

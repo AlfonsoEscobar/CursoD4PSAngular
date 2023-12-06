@@ -3,7 +3,10 @@ import { Libro } from '../../interfaces/libro.interface';
 import { LibroService } from '../../services/libro.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-page',
@@ -22,7 +25,8 @@ export class ListPageComponent implements OnInit {
 
   constructor(
     private libroService: LibroService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -36,19 +40,21 @@ export class ListPageComponent implements OnInit {
   }
 
   borrarLibro(libro: Libro) {
-    const index = this.selectedLibros.indexOf(libro);
-    if (index >= 0) {
-      this.selectedLibros.splice(index, 1);
-    } else {
-      this.selectedLibros.push(libro);
-      this.libroService.deleteLibro(libro.id)
-        .subscribe(data => { 
-          if (data) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: libro,
+    });
+
+    dialogRef.afterClosed()
+        .pipe(
+          filter( (result: boolean) => result ),
+          switchMap( () => this.libroService.deleteLibro(libro.id)),
+          filter( (wasDeleted: boolean) => wasDeleted ),
+        )
+        .subscribe(result => {
+          if (result) {
             this.libros = this.libros.filter(lib => lib.id !== libro.id);
           }
-        });
-    }
-
+      });
   }
 
   editarLibro(libro: Libro) {
@@ -63,37 +69,19 @@ export class ListPageComponent implements OnInit {
   }
 
   searchLibro(tag: string) {
-    let value: string = '';
-
-    if(tag === 'title'){
-      value = this.title.value || '';
-    }else if(tag === 'genre'){
-      value = this.genre.value || '';
-    }else if(tag === 'author'){
-      value = this.author.value || '';
-    }
-
-    this.libroService.getSuggestions(tag, value)
-      .subscribe( libros => {
-        this.libros = libros
+    const propertyMap: Record<string, FormControl> = {
+      'title': this.title,
+      'genre': this.genre,
+      'author': this.author
+    };
+  
+    const value = propertyMap[tag]?.value || '';
+    const query = `?${tag}_like=${value}`;
+  
+    this.libroService.getSuggestions(query)
+      .subscribe(libros => {
+        this.libros = libros;
       });
-  }
-
-  onSelectedOption( event: MatAutocompleteSelectedEvent, tag: string): void {
-    if( !event.option.value ){
-      this.selectedLibro = undefined;
-      return;
-    }
-    
-    const libro: Libro = event.option.value;
-    if(tag === 'title'){
-      this.title.setValue(libro.title);
-    }else if(tag === 'genre'){
-      this.genre.setValue(libro.genre);
-    }else if(tag === 'author'){
-      this.author.setValue(libro.author);
-    }
-    this.router.navigate(['/libros/edit', libro.id]);
   }
 
 }
