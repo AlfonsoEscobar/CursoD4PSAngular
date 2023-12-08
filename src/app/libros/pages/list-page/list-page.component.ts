@@ -4,9 +4,6 @@ import { LibroService } from '../../services/libro.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-page',
@@ -37,35 +34,6 @@ export class ListPageComponent implements OnInit {
     this.libroService.getLibros().subscribe((data) => {
       this.libros = data;
     });
-  }
-
-  borrarLibro(libro: Libro) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: libro,
-    });
-
-    dialogRef.afterClosed()
-        .pipe(
-          filter( (result: boolean) => result ),
-          switchMap( () => this.libroService.deleteLibro(libro.id)),
-          filter( (wasDeleted: boolean) => wasDeleted ),
-        )
-        .subscribe(result => {
-          if (result) {
-            this.libros = this.libros.filter(lib => lib.id !== libro.id);
-          }
-      });
-  }
-
-  editarLibro(libro: Libro) {
-    const index = this.selectedLibros.indexOf(libro);
-    if (index >= 0) {
-      this.selectedLibros.splice(index, 1);
-    } else {
-      this.selectedLibros.push(libro);
-      this.router.navigate(['/libros/edit', libro.id])
-    }
-
   }
 
   searchLibro(tag: string) {

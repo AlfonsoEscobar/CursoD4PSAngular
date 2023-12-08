@@ -87,5 +87,6 @@
 </div>
 
 
-{{this.libros | json}}
+<app-table *ngIf="libros.length > 0" [libros]="libros"></app-table>
+
 

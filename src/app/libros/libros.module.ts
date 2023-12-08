@@ -12,6 +12,7 @@ import { CardComponent } from './components/card/card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { LibroImagePipe } from './pipes/imageLibro.pipe';
+import { TableComponent } from './components/table/table.component';
 
 
 
@@ -24,7 +25,8 @@ import { LibroImagePipe } from './pipes/imageLibro.pipe';
     SearchPageComponent,
     CardComponent,
     LibroImagePipe,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

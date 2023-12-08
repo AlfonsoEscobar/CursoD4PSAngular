@@ -8,11 +8,11 @@ export class LibroImagePipe implements PipeTransform {
 
   transform(libro: Libro): string {
 
-    if(!libro.id && !libro.image){
+    if(!libro.id || !libro.image?.endsWith('.jpg')){
       return 'assets/no-image.png';
     }
 
-    //if(libro.image) return libro.image;
+    if(libro.image) return libro.image;
 
     // return `assets/libros/${libro.id}.jpg`;
     return 'assets/no-image.png';

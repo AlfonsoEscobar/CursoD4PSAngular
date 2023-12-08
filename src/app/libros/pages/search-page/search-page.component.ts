@@ -31,15 +31,6 @@ export class SearchPageComponent {
     private librosService: LibroService,
     private router: Router
     ) { }
-  
-  // searchLibro() {
-  //   const value: string = this.searchInput.value || '';
-
-  //   this.librosService.getSuggestions(value)
-  //     .subscribe( libros => {
-  //       this.libros = libros
-  //     });
-  // }
 
   onSubmit(): void{
     const libroBusqueda = this.libroForm.value as LibroBusqueda;
@@ -62,14 +53,17 @@ export class SearchPageComponent {
       }
     }
 
-    this.librosService.getSuggestions(busqueda)
-      .subscribe( data => {
-        this.libros = data;
-      });
+    if(busqueda != '?'){
+      this.librosService.getSuggestions(busqueda)
+        .subscribe( data => {
+          this.libros = data;
+        });
+    }
   }
 
   onClean(): void {
     this.libroForm.reset();
+    this.libros = [];
   }
 
 }
