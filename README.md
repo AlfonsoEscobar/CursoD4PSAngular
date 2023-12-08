@@ -1,5 +1,16 @@
 # CursoAngularNTTData
 
+## Primero instalar los modulos necesarios
+`npm install`
+
+## Segundo levantar el backend
+`npm run start:server`
+
+## Tercero levantar el frontend
+`npm run start`
+
+# CursoAngularNTTData
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
 ## Development server
